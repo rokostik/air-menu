@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleExecutable</key>
+	<string>air-menu</string>
+	<key>CFBundleName</key>
+  	<string>AirMenu</string>
+	<key>CFBundleGetInfoString</key>
+  	<string>AirMenu</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.github.rokostik.air-menu</string>
+	<key>CFBundleIconFile</key>
+	<string>Icon</string>
+	<key>CFBundleIconName</key>
+	<string>Icon</string>
+	<key>NSHighResolutionCapable</key><true/>
+	<key>NSSupportsAutomaticGraphicsSwitching</key><true/>
+	<key>LSUIElement</key><true/>
+</dict>
+</plist>
