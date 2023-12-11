@@ -14,7 +14,7 @@ When the app first starts it will ask you for your API client ID and secret. You
 
 ## Instalation
 
-TODO create a release and add instructions
+Download the zip file from the [releases](https://github.com/rokostik/air-menu/releases), extract it and copy the AirMenu.app to your Applications folder.
 
 ## Builing
 
