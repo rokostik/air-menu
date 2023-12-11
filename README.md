@@ -16,6 +16,8 @@ When the app first starts it will ask you for your API client ID and secret. You
 
 Download the zip file from the [releases](https://github.com/rokostik/air-menu/releases), extract it and copy the AirMenu.app to your Applications folder.
 
+NOTE: I do not have an Apple developer account to sign the app with therefore you will most likely receive a warning that the app is from an unidentified developer. To open the app follow these [steps](https://support.apple.com/kb/PH25088?locale=en_US).
+
 ## Builing
 
 To build from source, you need to have [go](https://go.dev/) installed. Then run:
