@@ -18,6 +18,9 @@ type Device struct {
 	DeviceType  string   `json:"deviceType"`
 	Sensors     []string `json:"sensors"`
 	ProductName string   `json:"productName"`
+	Segment     struct {
+		Name string `json:"name"`
+	} `json:"segment"`
 }
 
 type SensorData struct {

@@ -75,6 +75,34 @@ func setFocusedSensor(appState *AppState, sensor string) {
 	setMenuState(appState)
 }
 
+func deviceMenuText(device *api.Device) string {
+	if name := strings.TrimSpace(device.Segment.Name); name != "" {
+		return name
+	}
+	if name := strings.TrimSpace(device.ProductName); name != "" {
+		return name
+	}
+	if name := strings.TrimSpace(device.DeviceType); name != "" {
+		return name
+	}
+	return device.Id
+}
+
+func setSelectedDevice(appState *AppState, deviceId string) {
+	appState.mu.Lock()
+	if appState.selectedDeviceId == deviceId {
+		appState.mu.Unlock()
+		return
+	}
+	appState.selectedDeviceId = deviceId
+	appState.sensorData = nil
+	appState.currentError = nil
+	setMenuState(appState)
+	appState.mu.Unlock()
+
+	go refreshData(appState, false)
+}
+
 func setMenuState(appState *AppState) {
 	title := ""
 	if appState.sensorData != nil && appState.selectedSensor != "" {
@@ -112,6 +140,13 @@ func refreshData(appState *AppState, reccuring bool) {
 				continue
 			}
 			appState.devices = devices
+			if len(devices) == 0 {
+				appState.currentError = fmt.Errorf("no devices found")
+				setMenuState(appState)
+				appState.mu.Unlock()
+				time.Sleep(1 * time.Minute)
+				continue
+			}
 			appState.selectedDeviceId = devices[0].Id
 		}
 		sensorData, err := appState.apiClient.GetSensorData(appState.selectedDeviceId)
@@ -176,10 +211,11 @@ func menuItemsFunc(appState *AppState) func() []menuet.MenuItem {
 		if len(appState.devices) > 0 {
 			var menuDevicesChildren []menuet.MenuItem
 			for _, device := range appState.devices {
-				menuDevicesChildren = append(menuDevices, menuet.MenuItem{
-					Text: device.ProductName,
+				device := device
+				menuDevicesChildren = append(menuDevicesChildren, menuet.MenuItem{
+					Text: deviceMenuText(device),
 					Clicked: func() {
-						appState.selectedDeviceId = device.Id
+						setSelectedDevice(appState, device.Id)
 					},
 					State: appState.selectedDeviceId == device.Id,
 				})
